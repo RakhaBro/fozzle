@@ -1,0 +1,45 @@
+.player {
+    z-index: 100;
+    position: fixed;
+    left: 140px;
+    width: 30px;
+    height: 30px;
+    /* background: rgb(255, 249, 237); */
+    filter: drop-shadow(0px 0px 16px rgba(255, 255, 32, 0.6));
+    border-radius: 6px;
+    transform: translateY(0px);
+    transition: .15s;
+    align-items: center; justify-content: center; display: flex;
+}
+
+
+
+.bullet_vertical_position {
+    position: fixed;
+    left: calc(140px + 25px);
+    align-items: center; justify-content: center; display: flex;
+}
+
+.bullet {
+    z-index: 99;
+    position: fixed;
+    background: rgb(255, 249, 237);
+    box-shadow: 0px 0px 16px rgba(255, 255, 0, .6);
+    width: 40px;
+    height: 8px;
+    border-radius: 100vh;
+    animation: pushbullet 2s forwards linear;
+    transition: .2s;
+}
+
+
+
+
+@keyframes pushbullet {
+    0% {
+        transform: translateX(0px);
+    }
+    100% {
+        transform: translateX(1200px);
+    }
+}

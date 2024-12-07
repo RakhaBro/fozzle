@@ -1,0 +1,40 @@
+.enemy_vertical_position {
+  position: fixed;
+  right: -60px;
+}
+
+.enemy_goingleft {
+  position: fixed;
+  animation: coming 5s forwards linear;
+}
+
+.enemy1 {
+  width: 40px;
+  height: 40px;
+  background: rgb(255, 234, 234);
+  box-shadow: 0px 0px 16px rgba(255, 15, 15, 0.6);
+  border-radius: 6px;
+  transform: translateX(0px) rotate(45deg);
+  animation: rotating 5s forwards linear;
+  transition: .2s;
+}
+
+
+
+@keyframes coming {
+  0% {
+    transform: translateX(0px);
+  }
+  100% {
+    transform: translateX(-1200px);
+  }
+}
+
+@keyframes rotating {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
