@@ -38,8 +38,13 @@
 @keyframes pushbullet {
     0% {
         transform: translateX(0px);
+        opacity: 1;
+    }
+    60% {
+        opacity: 0;
     }
     100% {
         transform: translateX(1200px);
+        opacity: 0;
     }
 }

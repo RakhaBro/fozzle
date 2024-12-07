@@ -5,12 +5,16 @@
 
 .enemy_goingleft {
   position: fixed;
+  align-items: center; justify-content: center; display: flex;
   animation: coming 5s forwards linear;
 }
 
 .enemy1 {
+  z-index: 20;
+  position: absolute;
   width: 40px;
   height: 40px;
+  color: red; font-weight: bold; font-size: 24px;
   background: rgb(255, 234, 234);
   box-shadow: 0px 0px 16px rgba(255, 15, 15, 0.6);
   border-radius: 6px;
@@ -19,6 +23,73 @@
   transition: .2s;
 }
 
+.pieces_container {
+  z-index: 40;
+  align-items: center; justify-content: center; display: flex;
+  transform: scale(0);
+  opacity: 0;
+}
+
+.pieces {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 3px;
+  background: rgb(255, 234, 234);
+  box-shadow: 0px 0px 16px rgba(255, 15, 15, 0.6);
+}
+
+
+
+
+
+.stopped {
+  animation-play-state: paused;
+}
+
+.getshot {
+  background: black;
+  animation: disappear_when_getshot 1s forwards;
+}
+
+.deadapart {
+  animation: deadapart 1s forwards cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+
+
+
+
+@keyframes deadapart {
+  0% {
+    opacity: 1;
+    transform: scale(0);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
+    display: none;
+  }
+}
+
+
+@keyframes disappear_when_getshot {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  60% {
+    transform: scale(0);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0);
+    display: none;
+  }
+}
 
 
 @keyframes coming {
@@ -27,8 +98,10 @@
   }
   100% {
     transform: translateX(-1200px);
+    display: none;
   }
 }
+
 
 @keyframes rotating {
   0% {

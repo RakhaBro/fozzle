@@ -3,11 +3,11 @@ import { useContext, useEffect, useState } from "react";
 import Player from "../../components/player/player";
 import Enemy1 from "../../components/enemy1/enemy1";
 import { NavigationContext } from "../../providers/navigationProvider";
+import controlCollision from "../../controllers/collisioncontroller";
 
 function GamePlayPage() {
 
     const { setActivePage } = useContext(NavigationContext);
-
 
     // CONTROLLER ===================================================================
     const [charVerticalPosition, setCharVerticalPosition] = useState(0);
@@ -47,7 +47,8 @@ function GamePlayPage() {
         ]);
     };
 
-    useEffect(()=> {
+    useEffect(()=> {       
+        // Generate new enemy (always)
         setTimeout(() => {
             pushEnemy();
         }, 3000);
@@ -55,14 +56,32 @@ function GamePlayPage() {
     // ==============================================================================
 
 
+
+    // SCROLL CONTROLLER ============================================================
+    const [score, setScore] = useState(0);
+    // ==============================================================================
+
+
     useEffect(() => {
+
         // Enemies generator
         pushEnemy();
 
         // Wheel handler initialization
         window.addEventListener("wheel", handleWheel, { passive: true });
+        
+        // Start collision controller (to score and to miss)
+        const interval = setInterval(() => {
+            var collisionData = controlCollision();
+            if (collisionData.getscore === true) {
+                setScore((prevScore) => prevScore + 1);
+            }
+        }, 100);
+
+
         return () => {
           window.removeEventListener("wheel", handleWheel);
+          clearInterval(interval);
         };
 
     }, []);
@@ -75,7 +94,7 @@ function GamePlayPage() {
                 
                 <div className="layout_top">
                     {/* SCORE */}
-                    <h2 className="scoretext">Score: 0</h2>
+                    <h2 className="scoretext">Score: {score}</h2>
                 </div>
 
                 <div className="layout_bottom">
@@ -97,8 +116,8 @@ function GamePlayPage() {
             <div className="gameplay">
 
                 {/* CONTENT */}
-                <Player verticalPosition={charVerticalPosition} />
                 {enemies}
+                <Player verticalPosition={charVerticalPosition} />
 
             </div>
         </>

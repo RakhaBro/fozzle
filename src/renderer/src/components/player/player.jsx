@@ -16,8 +16,12 @@ function Player({verticalPosition}) {
     const pushBullet = () => {
         setBullets([
             ...bullets,
-            <BulletItem key={bullets.length} verticalPosition={verticalPositionRef.current} />]
-        )
+            <BulletItem
+                id={bullets.length}
+                key={bullets.length}
+                verticalPosition={verticalPositionRef.current}
+            />
+        ])
     };
 
     useEffect(() => {
@@ -27,13 +31,15 @@ function Player({verticalPosition}) {
     }, [bullets]);
     // =======================================
     
+
+    
     useEffect(() => {
         pushBullet();
     }, []);
     
     return(
         <>
-            <div className="player"
+            <div className="player" id="player"
                 style={{
                     transform: `translateY(${verticalPosition}px)`
                 }}
@@ -57,14 +63,17 @@ function Player({verticalPosition}) {
     );
 }
 
-function BulletItem({verticalPosition}) {
+function BulletItem({id, verticalPosition}) {
+
+    const bulletId = "bullet1_" + id;
+
     return(
         <div className="bullet_vertical_position"
             style={{
                 transform: `translateY(${verticalPosition}px)`
             }}
         >
-            <div className="bullet">
+            <div className="bullet" id={bulletId}>
             </div>
         </div>
     );
