@@ -31,6 +31,13 @@ function Player({verticalPosition}) {
     }, [bullets]);
     // =======================================
     
+    
+    // SKILL CONTROLLER ======================
+    // =======================================
+    const [skill, setSkill] = useState("");
+    
+    // =======================================
+    
 
     
     useEffect(() => {
@@ -44,6 +51,7 @@ function Player({verticalPosition}) {
                     transform: `translateY(${verticalPosition}px)`
                 }}
             >
+                <SkillElement />
                 <svg
                     width="50px"
                     height="50px"
@@ -76,6 +84,12 @@ function BulletItem({id, verticalPosition}) {
             <div className="bullet" id={bulletId}>
             </div>
         </div>
+    );
+}
+
+function SkillElement() {
+    return(
+        <div className="skillelement"></div>
     );
 }
 

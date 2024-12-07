@@ -11,9 +11,9 @@ function Enemy1({id, initialVerticalPosition}) {
                 transform: `translateY(${initialVerticalPosition}px)`
             }}
         >
-            <div className="enemy_goingleft" id={enemyGoingLeftId}>
-                <div className="enemy1" id={enemyId}></div>
-                <div className="pieces_container">
+            <div className="enemy_goingleft" id={enemyGoingLeftId} >
+                <div className="enemy1" id={enemyId} ></div>
+                <div className="pieces_container" >
                     <RandomPieces />
                     <RandomPieces />
                     <RandomPieces />

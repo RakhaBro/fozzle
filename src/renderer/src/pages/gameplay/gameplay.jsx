@@ -57,8 +57,13 @@ function GamePlayPage() {
 
 
 
-    // SCROLL CONTROLLER ============================================================
+    // SCORE CONTROLLER =============================================================
     const [score, setScore] = useState(0);
+    // ==============================================================================
+    
+    
+    // HEALTH CONTROLLER ============================================================
+    const [health, setHealth] = useState(100);
     // ==============================================================================
 
 
@@ -75,6 +80,9 @@ function GamePlayPage() {
             var collisionData = controlCollision();
             if (collisionData.getscore === true) {
                 setScore((prevScore) => prevScore + 1);
+            }
+            if (collisionData.enemypass === true) {
+                setHealth((prevHealth) => prevHealth - 10);
             }
         }, 100);
 
@@ -102,7 +110,8 @@ function GamePlayPage() {
                     <div className="bar_container">
                         <p>Health</p>
                         <div className="bar_border">
-                            <div className="bar"></div>
+                            <div className="bar" style={{width: `${health}%`}}>
+                            </div>
                         </div>
                     </div>
                     {/* ACTIONS */}

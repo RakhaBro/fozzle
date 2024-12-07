@@ -1,12 +1,13 @@
 function controlCollision() {
 
     var getscore = false;
+    var enemypass = false;
 
     // Player bound
     // ======================================================
     const playerElement = document.getElementById("player");
     if (playerElement === null) {
-        return;
+        return {'getscore' : false, enemypass: 'false'};
     }
     const playerRect = playerElement.getBoundingClientRect();
     // ======================================================
@@ -17,7 +18,7 @@ function controlCollision() {
     const bullets = document.querySelectorAll(".bullet");
     const latestBulletElement = bullets[bullets.length - 1];
     if (latestBulletElement.classList.contains("getttarget")) {
-        return {"getscore" : false};
+        return {'getscore' : false, enemypass: 'false'};
     }
     const latestBulletId = latestBulletElement.id;
     const latestBulletRect = document.getElementById(latestBulletId).getBoundingClientRect();
@@ -27,7 +28,6 @@ function controlCollision() {
     // Enemies bounds
     // ======================================================
     const enemies = document.querySelectorAll(".enemy1");
-    let deadTarget = null;
     for (let i = 0; i < enemies.length; i++) {
         const enemyElement = enemies[i];
         const enemyId = enemyElement.id;
@@ -35,24 +35,38 @@ function controlCollision() {
         const enemyIdNum = enemeyIdSplitted[enemeyIdSplitted.length - 1];
         const enemyRect = document.getElementById(enemyId).getBoundingClientRect();
         
-        // Bullet collision to enemy
+        // IF ENEMY GOT SHOT BY A BULLET
         if (latestBulletRect.top < enemyRect.bottom &&
             latestBulletRect.bottom > enemyRect.top &&
             latestBulletRect.right > enemyRect.left &&
             latestBulletRect.left < enemyRect.right
         ) {
-            // if (deadTargets.includes(enemyId)) {
-            //     return;
-            // }
             latestBulletElement.classList.add("getttarget");
             enemyElement.classList.add("getshot");
             var enemyGoingLeft = document.getElementById("enemy_goingleft_" + enemyIdNum);
             enemyGoingLeft.querySelector(".pieces_container").classList.add("deadapart");
             enemyGoingLeft.classList.add("stopped")
             getscore = true;
-            deadTarget = enemyId;
+            console.log(enemyId + " got shot!");
         }
+
+        // IF ENEMY PASS
+        if (
+            enemyRect.x < 140
+            && !enemyElement.classList.contains("getshot")
+            && !enemyElement.classList.contains("passed")
+        ) {
+            console.log(enemyId + " passed");
+            enemyElement.classList.add("passed");
+            enemypass = true;
+            playerElement.classList.add("healthdown");
+            setTimeout(() => {
+                playerElement.classList.remove("healthdown");
+            }, 500);
+        }
+
     }
+
     // ======================================================
 
 
@@ -60,7 +74,7 @@ function controlCollision() {
 
     return{
         'getscore' : getscore,
-        'deadtargetid' : deadTarget
+        'enemypass' : enemypass
     };
 
 }
