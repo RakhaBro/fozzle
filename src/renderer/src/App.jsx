@@ -3,6 +3,7 @@ import { NavigationContext } from "./providers/navigationProvider"
 import HomePage from "./pages/home/home"
 import GamePlayPage from "./pages/gameplay/gameplay"
 import GameOverPage from "./pages/gameover/gameover"
+import BackgroundMusic from "./components/backgroundmusic"
 import Icon_Minimize from "./assets/icons/minimizeIcon"
 import Icon_Close from "./assets/icons/closeIcon"
 
@@ -26,6 +27,7 @@ function App() {
         <button><Icon_Close dimension={16} /></button>
       </div>
       {windowContent}
+      <BackgroundMusic />
     </div>
   )
 }

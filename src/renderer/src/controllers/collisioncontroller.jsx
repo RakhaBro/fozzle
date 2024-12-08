@@ -33,8 +33,8 @@ function controlCollision() {
             const shotRect = shots[j].getBoundingClientRect();
             
             if (
-                !shotElement.classList.contains("getttarget")
-                && !enemyElement.classList.contains("getshot")
+                // !shotElement.classList.contains("getttarget") &&
+                !enemyElement.classList.contains("getshot")
             ) {
                 
                 // IF ENEMY GOT SHOT BY A "SHOT"

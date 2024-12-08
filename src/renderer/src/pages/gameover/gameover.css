@@ -1,0 +1,42 @@
+.gameoverpage {
+    color: white;
+    width: 100%;
+    height: 100%;
+    align-items: center; justify-content: center; display: flex;
+}
+
+.gameoverpage > .maincontent {
+    width: 400px;
+    align-items: center; justify-content: center; display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 24px;
+    padding: 24px;
+    box-sizing: border-box;
+    margin-bottom: 48px;
+    border-radius: 24px;
+    border: 1px solid white;
+}
+
+.gameoverpage > .maincontent h1 {
+    font-size: 60px;
+    margin: 0px; padding: 0px;
+}
+
+.gameoverpage > .maincontent button {
+    all: unset;
+    cursor: pointer;
+    margin: 24px 0px;
+    background-color: white;
+    color: black;
+    padding: 12px 24px;
+    border-radius: 100vh;
+    width: 240px;
+    transition: .15s;
+    filter: drop-shadow(0px 0px 12px rgba(255, 255, 0, .2));
+}
+
+.gameoverpage > .maincontent button:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0px 0px 16px rgba(255, 255, 0, .4));
+}

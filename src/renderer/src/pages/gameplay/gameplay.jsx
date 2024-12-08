@@ -1,16 +1,17 @@
 import "./gameplay.css";
 import React, { useContext, useEffect, useState } from "react";
 import Player from "../../components/player/player";
-import Enemy1 from "../../components/enemy1/enemy1";
 import { NavigationContext } from "../../providers/navigationProvider";
 import controlCollision from "../../controllers/collisioncontroller";
+import EnemiesGenerator from "../../controllers/enemiesgenerator";
+import { ScoreContext } from "../../providers/scoreProvider";
 
 const GamePlayPage = React.memo(() => {
 
     const { setActivePage } = useContext(NavigationContext);
 
     // SCORE CONTROLLER =============================================================
-    const [score, setScore] = useState(0);
+    const { score, setScore } = useContext(ScoreContext);
     // ==============================================================================
     
     
@@ -81,44 +82,6 @@ const GamePlayPage = React.memo(() => {
             </div>
         </>
     );
-})
-
-
-
-const EnemiesGenerator = React.memo(() => {
-
-    console.log("enemy generator is built");
-    
-    // ENEMIES GENERATOR ============================================================
-    
-    const [enemies, setEnemies] = useState([]);
-    const pushEnemy = () => {
-        const randomVerticalPosition = Math.floor(Math.random() * (145 - (-145) + 1)) + (-145);
-        setEnemies([
-            ...enemies,
-            <Enemy1
-                id={enemies.length}
-                key={"enemy1_" + enemies.length}
-                initialVerticalPosition={randomVerticalPosition}
-            />
-        ]);
-    };
-
-    useEffect(()=> {       
-        // Generate new enemy (always)
-        setTimeout(() => {
-            pushEnemy();
-        }, 1000);
-    }, [enemies]);
-
-    // ==============================================================================
-
-    // Enemies generator
-    useEffect(() => {
-        pushEnemy();
-    }, []);
-
-    return(<>{enemies}</>);
 })
 
 
