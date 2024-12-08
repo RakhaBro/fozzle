@@ -1,0 +1,194 @@
+.skillelement {
+    position: absolute;
+    align-items: center; justify-content: center; display: flex;
+}
+
+
+
+
+
+
+
+
+
+/* ===================================================================================== */
+/*                                          GALAXY                                       */
+/* ===================================================================================== */
+
+.skillelement_galaxy {
+    align-items: center; justify-content: center; display: flex;
+}
+
+.runskill_galaxy {
+    width: 260px;
+    height: 260px;
+    opacity: 0;
+    scale: 0;
+    background: radial-gradient(
+        ellipse at center,
+        rgba(255, 255, 255, 0),
+        rgba(255, 255, 255, 0),
+        rgba(255, 255, 255, .1),
+        rgba(255, 255, 255, 0)
+    );
+    border-radius: 100vh;
+    filter: drop-shadow(0px 0px 16px rgba(255, 255, 0, .6));
+    align-items: center; justify-content: center; display: flex;
+    animation: 4s runskill_galaxy forwards cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.skillelement_galaxy_orbit1 {
+    position: absolute;
+    width: 260px;
+    height: 260px;
+    border-radius: 1000vh;
+    border: .5px solid white;
+    align-items: center; justify-content: space-between; display: flex;
+    flex-direction: column;
+    animation: 2s galaxy_rotating_orbit1 infinite linear;
+}
+
+.skillelement_galaxy_planet1_1 {
+    position: relative;
+    bottom: 8px;
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    background: white;
+    align-items: center; justify-content: center; display: flex;
+    animation: 2s galaxy_rotating_orbit1 infinite linear;
+}
+
+.skillelement_galaxy_subplanet1_1 {
+    position: relative;
+    bottom: 24px;
+    width: 6px;
+    height: 6px;
+    border-radius: 4px;
+    background: white;
+    align-items: center; justify-content: center; display: flex;
+}
+
+.skillelement_galaxy_planet1_2 {
+    position: relative;
+    top: 8px;
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    background: white;
+    align-items: center; justify-content: center; display: flex;
+}
+
+@keyframes galaxy_rotating_orbit1 {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.skillelement_galaxy_orbit2 {
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    border-radius: 1000vh;
+    border: .5px solid white;
+    align-items: center; justify-content: start; display: flex;
+    flex-direction: column;
+    animation: 1.6s galaxy_rotating_orbit2 infinite linear;
+}
+
+.skillelement_galaxy_planet2 {
+    position: relative;
+    bottom: 4.5px;
+    width: 9px;
+    height: 9px;
+    border-radius: 4px;
+    background: white;
+    align-items: center; justify-content: center; display: flex;
+}
+
+@keyframes galaxy_rotating_orbit2 {
+    0% {
+        transform: rotate(40deg);
+    }
+    100% {
+        transform: rotate(400deg);
+    }
+}
+
+.skillelement_galaxy_orbit3 {
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    border-radius: 1000vh;
+    border: .5px solid white;
+    align-items: center; justify-content: start; display: flex;
+    flex-direction: column;
+    animation: .8s galaxy_rotating_orbit3 infinite linear;
+}
+
+.skillelement_galaxy_planet3 {
+    position: relative;
+    bottom: 3px;
+    width: 6px;
+    height: 6px;
+    border-radius: 1px;
+    background: white;
+    align-items: center; justify-content: center; display: flex;
+}
+
+@keyframes galaxy_rotating_orbit3 {
+    0% {
+        transform: rotate(-80deg);
+    }
+    100% {
+        transform: rotate(280deg);
+    }
+}
+
+.galaxybullet_initialrotation {
+    position: absolute;
+    align-items: center; justify-content: center; display: flex;
+}
+
+.galaxybullet {
+    position: absolute;
+    width: 12px; height: 12px;
+    border-radius: 12px;
+    background: white;
+}
+
+.pushgalaxybullet {
+    animation: pushbullet 2s forwards linear;
+}
+
+/* ===================================================================================== */
+/* ===================================================================================== */
+
+
+
+
+@keyframes runskill_galaxy {
+    0% {
+        opacity: 0;
+        scale: 0;
+    }
+    12% {
+        opacity: 1;
+        scale: 1.1;
+    }
+    18% {
+        opacity: 1;
+        scale: 1;
+    }
+    85% {
+        opacity: 1;
+        scale: 1;
+    }
+    100% {
+        opacity: 0;
+        scale: 0;
+    }
+}

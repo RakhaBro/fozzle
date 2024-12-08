@@ -1,6 +1,7 @@
+import React from "react";
 import "./enemy1.css";
 
-function Enemy1({id, initialVerticalPosition}) {
+const Enemy1 = React.memo(({id, initialVerticalPosition}) => {
 
     const enemyId = "enemy1_" + id;
     const enemyGoingLeftId = "enemy_goingleft_" + id;
@@ -29,9 +30,9 @@ function Enemy1({id, initialVerticalPosition}) {
             </div>
         </div>
     );
-}
+})
 
-function RandomPieces() {
+const RandomPieces = React.memo(() => {
     return(
         <div className="pieces" style={{
             transform: `translate(${
@@ -41,6 +42,6 @@ function RandomPieces() {
             }px) scale(${Math.floor(Math.random() * (1 - (-.6) + 1)) + (-.6)})`
         }}></div>
     );
-}
+})
 
 export default Enemy1;

@@ -1,52 +1,45 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./player.css";
+import SkillElement from "../skill/skill";
 
-function Player({verticalPosition}) {
-    
-    // BULLET GENERATOR
-    const [bullets, setBullets] = useState([]);
-    const verticalPositionRef = useRef(verticalPosition);
+const Player = React.memo(() => {
 
-    useEffect(() => {
-        setTimeout(() => {
-            verticalPositionRef.current = verticalPosition;
-        }, 150);
-      }, [verticalPosition]);
-
-    const pushBullet = () => {
-        setBullets([
-            ...bullets,
-            <BulletItem
-                id={bullets.length}
-                key={bullets.length}
-                verticalPosition={verticalPositionRef.current}
-            />
-        ])
+    // CONTROLLER ===================================================================
+    const [verticalPosition, setVerticalPosition] = useState(0);
+    const handleWheel = (event) => {
+        setVerticalPosition((prevVerticalPosition) => {
+            const step = 25;
+            if (event.deltaY > 0) {
+                if (prevVerticalPosition < 300) {           // screen bottom boundary
+                    return prevVerticalPosition + step;
+                } else {
+                    
+                    return prevVerticalPosition;
+                }
+            } else {
+                if (prevVerticalPosition > -300) {          // screen top boundary
+                    return prevVerticalPosition - step;
+                } else {
+                    return prevVerticalPosition;
+                }
+            }
+        });
     };
+    // ==============================================================================
+
 
     useEffect(() => {
-        setTimeout(() => {
-            pushBullet();
-        }, 1000);
-    }, [bullets]);
-    // =======================================
-    
-    
-    // SKILL CONTROLLER ======================
-    // =======================================
-    const [skill, setSkill] = useState("");
-    
-    // =======================================
-    
-
-    
-    useEffect(() => {
-        pushBullet();
+        // Wheel handler initialization
+        window.addEventListener("wheel", handleWheel, { passive: true });
+        return () => {
+            window.removeEventListener("wheel", handleWheel);
+        };
     }, []);
     
     return(
         <>
-            <div className="player" id="player"
+            <div
+                className="player" id="player"
                 style={{
                     transform: `translateY(${verticalPosition}px)`
                 }}
@@ -66,13 +59,55 @@ function Player({verticalPosition}) {
                     />
                 </svg>
             </div>
-            {bullets}
+            <BulletsGenerator verticalPosition={verticalPosition} />
         </>
     );
-}
+})
 
-function BulletItem({id, verticalPosition}) {
 
+
+// BULLETS ============================================================================
+// ====================================================================================
+
+const BulletsGenerator = React.memo(({verticalPosition}) => {
+    // BULLET GENERATOR
+    const [bullets, setBullets] = useState([]);
+    const verticalPositionRef = useRef(verticalPosition);
+
+    useEffect(() => {
+        setTimeout(() => {
+            verticalPositionRef.current = verticalPosition;
+        }, 150);
+      }, [verticalPosition]);
+
+    const pushBullet = () => {
+        setBullets([
+            ...bullets,
+            <BulletItem
+                id={"bullet" + bullets.length}
+                key={"bullet" + bullets.length}
+                verticalPosition={verticalPositionRef.current}
+            />
+        ])
+    };
+
+    useEffect(() => {
+        setTimeout(() => {
+            pushBullet();
+        }, 1000);
+    }, [bullets]);
+
+    useEffect(() => {
+        pushBullet();
+    }, []);
+    // =======================================
+
+    return(<>{bullets}</>);
+})
+
+
+const BulletItem = React.memo(({id, verticalPosition}) => {
+    
     const bulletId = "bullet1_" + id;
 
     return(
@@ -81,16 +116,13 @@ function BulletItem({id, verticalPosition}) {
                 transform: `translateY(${verticalPosition}px)`
             }}
         >
-            <div className="bullet" id={bulletId}>
+            <div className="bullet shot" id={bulletId}>
             </div>
         </div>
     );
-}
+})
 
-function SkillElement() {
-    return(
-        <div className="skillelement"></div>
-    );
-}
+// ====================================================================================
+// ====================================================================================
 
 export default Player;
