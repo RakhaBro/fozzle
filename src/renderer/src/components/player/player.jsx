@@ -13,7 +13,6 @@ const Player = React.memo(() => {
                 if (prevVerticalPosition < 300) {           // screen bottom boundary
                     return prevVerticalPosition + step;
                 } else {
-                    
                     return prevVerticalPosition;
                 }
             } else {

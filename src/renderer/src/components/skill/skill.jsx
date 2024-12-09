@@ -20,6 +20,9 @@ const SkillElement = React.memo(({verticalPosition}) => {
                 case "lightparticle":
                     document.querySelector(".skillelement_lightparticle").classList.add("runskill_lightparticle");
                     break;
+                case "butterfly":
+                    document.querySelector(".skillelement_butterfly").classList.add("runskill_butterfly");
+                    break;
                 default:
                     break;
             }
@@ -69,6 +72,7 @@ const SkillElement = React.memo(({verticalPosition}) => {
         >
             {skill == "galaxy" && <SkillElemment_Galaxy verticalPosition={verticalPosition} />}
             {skill == "lightparticle" && <SkillElemment_LightParticle />}
+            {skill == "butterfly" && <SkillElemment_Butterfly />}
         </div>
     );
 })
@@ -193,6 +197,46 @@ const SkillElemment_LightParticle_Child = React.memo(() => {
         </div>
     );
 })
+
+
+
+
+
+// ==================================================================================
+//                  BUTTERFLY
+// ==================================================================================
+
+
+
+const SkillElemment_Butterfly = React.memo(() => {
+    return(
+        <div className="skillelement_butterfly shot">
+            <div className="skillelement_butterfly_child">
+                <SkillElement_Butterfly_Element />
+                <SkillElement_Butterfly_Element />
+                <SkillElement_Butterfly_Element />
+                <SkillElement_Butterfly_Element />
+                <SkillElement_Butterfly_Element />
+            </div>
+        </div>
+    );
+})
+
+const SkillElement_Butterfly_Element = React.memo(() => {
+    return(
+        <div className="skillelement_butterfly_element"
+            style={{
+                transform: `translate(${
+                    Math.floor(Math.random() * (140 - (-140) + 1)) + (-140)
+                }px, ${
+                    Math.floor(Math.random() * (140 - (-140) + 1)) + (-140)
+                }px)`
+            }}
+        ></div>
+    );
+})
+
+
 
 
 export default SkillElement;
