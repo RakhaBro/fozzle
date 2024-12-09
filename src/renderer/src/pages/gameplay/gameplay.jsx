@@ -26,6 +26,8 @@ const GamePlayPage = React.memo(() => {
 
 
     useEffect(() => {
+
+        setScore(0);
         
         // Start collision controller (to score and to miss)
         const interval = setInterval(() => {
@@ -34,7 +36,7 @@ const GamePlayPage = React.memo(() => {
                 setScore((prevScore) => prevScore + 1);
             }
             if (collisionData.enemypass === true) {
-                setHealth((prevHealth) => prevHealth - 10);
+                // setHealth((prevHealth) => prevHealth - 10);  
             }
         }, 100);
 

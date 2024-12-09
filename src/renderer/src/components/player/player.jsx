@@ -38,13 +38,13 @@ const Player = React.memo(() => {
     
     return(
         <>
+            <SkillElement verticalPosition={verticalPosition} />
             <div
                 className="player" id="player"
                 style={{
                     transform: `translateY(${verticalPosition}px)`
                 }}
             >
-                <SkillElement />
                 <svg
                     width="50px"
                     height="50px"
@@ -59,7 +59,7 @@ const Player = React.memo(() => {
                     />
                 </svg>
             </div>
-            <BulletsGenerator verticalPosition={verticalPosition} />
+            <BulletsGenerator verticalPosition={verticalPosition} key={"bulletsgenerator"} />
         </>
     );
 })
@@ -70,8 +70,9 @@ const Player = React.memo(() => {
 // ====================================================================================
 
 const BulletsGenerator = React.memo(({verticalPosition}) => {
-    // BULLET GENERATOR
+
     const [bullets, setBullets] = useState([]);
+    const [bulletsNum, setBulletsNum] = useState(0);
     const verticalPositionRef = useRef(verticalPosition);
 
     useEffect(() => {
@@ -81,20 +82,27 @@ const BulletsGenerator = React.memo(({verticalPosition}) => {
       }, [verticalPosition]);
 
     const pushBullet = () => {
+        var bulletsUpdatedList = bullets;
+        if (bullets.length > 10) {
+            bulletsUpdatedList = bullets.slice(Math.floor(bullets.length / 2), bullets.length);
+        }
         setBullets([
-            ...bullets,
+            ...bulletsUpdatedList,
             <BulletItem
-                id={"bullet" + bullets.length}
-                key={"bullet" + bullets.length}
+                id={"bullet" + bulletsNum}
+                key={"bullet" + bulletsNum}
                 verticalPosition={verticalPositionRef.current}
             />
-        ])
+        ]);
+        setBulletsNum((prevVal) => prevVal += 1);
+        console.log("Bullets: " + bulletsNum);
     };
 
     useEffect(() => {
-        setTimeout(() => {
+        const timeout = setTimeout(() => {
             pushBullet();
         }, 1000);
+        return () => clearTimeout(timeout);
     }, [bullets]);
 
     useEffect(() => {

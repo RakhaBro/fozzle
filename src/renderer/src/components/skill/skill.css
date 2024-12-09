@@ -17,6 +17,8 @@
 
 .skillelement_galaxy {
     align-items: center; justify-content: center; display: flex;
+    transition: .25s;
+    position: fixed;
 }
 
 .runskill_galaxy {
@@ -35,6 +37,29 @@
     filter: drop-shadow(0px 0px 16px rgba(255, 255, 0, .6));
     align-items: center; justify-content: center; display: flex;
     animation: 4s runskill_galaxy forwards cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes runskill_galaxy {
+    0% {
+        opacity: 0;
+        scale: 0;
+    }
+    12% {
+        opacity: 1;
+        scale: 1.1;
+    }
+    18% {
+        opacity: 1;
+        scale: 1;
+    }
+    85% {
+        opacity: 1;
+        scale: 1;
+    }
+    100% {
+        opacity: 0;
+        scale: 0;
+    }
 }
 
 .skillelement_galaxy_orbit1 {
@@ -154,13 +179,15 @@
 }
 
 .galaxybullet {
-    position: absolute;
+    position: fixed;
     width: 12px; height: 12px;
     border-radius: 12px;
     background: white;
+    display: none;
 }
 
 .pushgalaxybullet {
+    display: flex;
     animation: pushbullet 2s forwards linear;
 }
 
@@ -170,25 +197,88 @@
 
 
 
-@keyframes runskill_galaxy {
+
+
+
+
+
+
+
+
+
+/* ===================================================================================== */
+/*                                          GALAXY                                       */
+/* ===================================================================================== */
+
+.skillelement_lightparticle {
+    position: fixed;
+    top: 0px; left: 0px;
+    align-items: center; justify-content: center; display: flex;
+}
+
+.runskill_lightparticle {
+    all: unset;
+    position: fixed;
+    z-index: 300;
+    top: 0px;
+    left: 0px;
+    height: 100vh;
+    width: 0px;
+    background: linear-gradient(to right, rgba(255, 255, 255, .6), rgba(255, 255, 255, .2), rgba(255, 255, 255, 0));
+    filter: drop-shadow(0px 0px 16px rgba(255, 255, 0, .6));
+    align-items: center; justify-content: center; display: flex;
+    animation: 4s runskill_lightparticle forwards cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+@keyframes runskill_lightparticle {
     0% {
-        opacity: 0;
-        scale: 0;
+        width: 0px;
     }
-    12% {
-        opacity: 1;
-        scale: 1.1;
+    20% {
+        width: 60px;
     }
-    18% {
-        opacity: 1;
-        scale: 1;
-    }
-    85% {
-        opacity: 1;
-        scale: 1;
+    80% {
+        width: 60px;
     }
     100% {
-        opacity: 0;
-        scale: 0;
+        width: 0px;
+    }
+}
+
+.lightparticlebullet {
+    width: 80px;
+    height: 8px;
+    background: white;
+    border-radius: 0px 20px 20px 0px;
+    display: flex;
+    position: fixed;
+}
+
+.lightparticlebullet_verticalposition {
+    position: fixed;
+    left: -80px;
+}
+
+.push_lightparticle_bullet {
+    animation: pushbullet 1.5s forwards linear;
+}
+
+.lightparticlebullet_child {
+    border: 1px solid white;
+    width: 6px; height: 6px;
+    border-radius: 2px;
+}
+
+.lightparticlebullet_child_goingleft {
+    animation: 2s lightparticlebullet_child_goingleft forwards linear;
+}
+
+
+@keyframes lightparticlebullet_child_goingleft {
+    0% {
+        transform: translateX(0px);
+    }
+    100% {
+        transform: translateX(-100px);
     }
 }

@@ -25,9 +25,9 @@ function App() {
       <div className="upperframe">
         <button><Icon_Minimize dimension={12} /></button>
         <button><Icon_Close dimension={16} /></button>
+        <BackgroundMusic />
       </div>
       {windowContent}
-      <BackgroundMusic />
     </div>
   )
 }

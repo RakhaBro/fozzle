@@ -1,22 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./skill.css";
 
-const SkillElement = React.memo(() => {
+const SkillElement = React.memo(({verticalPosition}) => {
 
     // SKILL CONTROLLER ======================
     // =======================================
     const [skill, setSkill] = useState("");
+    const skillRef = useRef(skill);
+    var skillTimeout;
     useEffect(() => {
+        skillRef.current = skill;
+        clearTimeout(skillTimeout);
         console.log("Skill: " + skill);
         if (skill !== "") {
             switch (skill) {
                 case "galaxy":
                     document.querySelector(".skillelement_galaxy").classList.add("runskill_galaxy");
                     break;
+                case "lightparticle":
+                    document.querySelector(".skillelement_lightparticle").classList.add("runskill_lightparticle");
+                    break;
                 default:
                     break;
             }
-            setTimeout(() => {
+            skillTimeout = setTimeout(() => {
                 setSkill("");
             }, 4000);
         }
@@ -27,7 +34,7 @@ const SkillElement = React.memo(() => {
     useEffect(() => {
         const handleKeyDown = (event) => {
             
-            if (skill == "") {
+            if (skillRef.current == "") {
                 if (event.key === '1') {
                     setSkill("galaxy");
                 } else if (event.key === '2') {
@@ -49,18 +56,34 @@ const SkillElement = React.memo(() => {
 
 
     return(
-        <div className="skillelement">
-            {skill == "galaxy" && <SkillElemment_Galaxy />}
+        <div className="skillelement"
+            style={
+                skill == "lightparticle"
+                ? {}
+                : {
+                    transform: `translateY(${verticalPosition}px)`,
+                    transition: ".25s",
+                    left: "150px"
+                }
+            }
+        >
+            {skill == "galaxy" && <SkillElemment_Galaxy verticalPosition={verticalPosition} />}
+            {skill == "lightparticle" && <SkillElemment_LightParticle />}
         </div>
     );
 })
 
 
-function SkillElemment_Galaxy() {
+// ==================================================================================
+//                  GALAXY
+// ==================================================================================
+
+
+const SkillElemment_Galaxy = React.memo(({verticalPosition}) => {
 
     let shots = [];
-    for (let i = 0; i < 30; i++) {
-        shots.push(<SkillElement_Galaxy_Shot key={"galaxyshot" + i} id={i} delay={i > 15 ? 1000 : null} />);
+    for (let i = 0; i < 20; i++) {
+        shots.push(<SkillElement_Galaxy_Shot key={"galaxyshot" + i} id={i} delay={i > 10 ? 800 : null} />);
     }
 
     return(
@@ -82,9 +105,9 @@ function SkillElemment_Galaxy() {
             {shots}
         </>
     );
-}
+})
 
-function SkillElement_Galaxy_Shot({id, delay}) {
+const SkillElement_Galaxy_Shot = React.memo(({id, delay}) => {
 
     const elementId = "galaxyshot" + id;
     useEffect(() => {
@@ -100,6 +123,76 @@ function SkillElement_Galaxy_Shot({id, delay}) {
             <div className="galaxybullet shot" id={elementId}></div>
         </div>
     );
-}
+})
+
+
+
+
+// ==================================================================================
+//                  LIGHT PARTICLE
+// ==================================================================================
+
+const SkillElemment_LightParticle = React.memo(() => {
+
+    let shots = [];
+    for (let i = 0; i < 20; i++) {
+        shots.push(
+            <SkillElemment_LightParticle_Shot
+                key={"lightparticlebullet_" + i}
+                id={i}
+                delay={Math.floor(Math.random() * (1000 - (0) + 1000)) + (-0)}
+            />
+        );
+    }
+
+    return(
+        <div className="skillelement_lightparticle shot">
+            {shots}
+        </div>
+    );
+})
+
+const SkillElemment_LightParticle_Shot = React.memo(({id, delay}) => {
+
+    const elementId = "lightparticleshot" + id;
+    useEffect(() => {
+        setTimeout(() => {
+            document.getElementById(elementId).classList.add("push_lightparticle_bullet");
+        }, delay ?? 0);
+    }, []);
+
+    return(
+        <div className="lightparticlebullet_verticalposition"
+            style={{transform: `translateY(${Math.floor(Math.random() * (295 - (-295) + 1)) + (-295)}px)`}}
+        >
+            <div className="lightparticlebullet shot" id={elementId}>
+                <SkillElemment_LightParticle_Child />
+                <SkillElemment_LightParticle_Child />
+                <SkillElemment_LightParticle_Child />
+                <SkillElemment_LightParticle_Child />
+            </div>
+        </div>
+    );
+})
+
+const SkillElemment_LightParticle_Child = React.memo(() => {
+    return(
+        <div className="lightparticlebullet_child_goingleft">
+            <div
+                className="lightparticlebullet_child shot"
+                style={{
+                    transform: `translate(${
+                        Math.floor(Math.random() * (-40 - (-100) + 1)) + (-40)
+                    }px, ${
+                        Math.floor(Math.random() * (80 - (-80) + 1)) + (-80)
+                    }px)
+                    rotate(45deg)
+                    scale(${Math.floor(Math.random() * (1 - (-.5) + 1)) + (-.5)})`
+                }}
+            ></div>
+        </div>
+    );
+})
+
 
 export default SkillElement;
