@@ -23,6 +23,9 @@ const SkillElement = React.memo(({verticalPosition}) => {
                 case "butterfly":
                     document.querySelector(".skillelement_butterfly").classList.add("runskill_butterfly");
                     break;
+                case "interconnection":
+                    document.querySelector(".skillelement_interconnection").classList.add("runskill_interconnection");
+                    break;
                 default:
                     break;
             }
@@ -45,7 +48,7 @@ const SkillElement = React.memo(({verticalPosition}) => {
                 } else if (event.key === '3') {
                     setSkill("butterfly");
                 } else if (event.key === '4') {
-                    setSkill("network");
+                    setSkill("interconnection");
                 }
             }
 
@@ -61,11 +64,11 @@ const SkillElement = React.memo(({verticalPosition}) => {
     return(
         <div className="skillelement"
             style={
-                skill == "lightparticle"
+                skill == "lightparticle" || skill == "interconnection"
                 ? {}
                 : {
                     transform: `translateY(${verticalPosition}px)`,
-                    transition: ".25s",
+                    transition: ".3s",
                     left: "150px"
                 }
             }
@@ -73,6 +76,7 @@ const SkillElement = React.memo(({verticalPosition}) => {
             {skill == "galaxy" && <SkillElemment_Galaxy verticalPosition={verticalPosition} />}
             {skill == "lightparticle" && <SkillElemment_LightParticle />}
             {skill == "butterfly" && <SkillElemment_Butterfly />}
+            {skill == "interconnection" && <SkillElemment_Interconnection />}
         </div>
     );
 })
@@ -144,7 +148,7 @@ const SkillElemment_LightParticle = React.memo(() => {
             <SkillElemment_LightParticle_Shot
                 key={"lightparticlebullet_" + i}
                 id={i}
-                delay={Math.floor(Math.random() * (1000 - (0) + 1000)) + (-0)}
+                delay={Math.floor(Math.random() * (1000 - (0) + 1000)) + (0)}
             />
         );
     }
@@ -209,32 +213,100 @@ const SkillElemment_LightParticle_Child = React.memo(() => {
 
 
 const SkillElemment_Butterfly = React.memo(() => {
+
+    var skillElement_butterfly_elements = []
+    for (let i = 0; i < 7; i++) {
+        skillElement_butterfly_elements.push(
+            <SkillElement_Butterfly_Element key={'skillelement_butterfly_element_' + i} />
+        );
+    }
+
     return(
         <div className="skillelement_butterfly shot">
-            <div className="skillelement_butterfly_child">
-                <SkillElement_Butterfly_Element />
-                <SkillElement_Butterfly_Element />
-                <SkillElement_Butterfly_Element />
-                <SkillElement_Butterfly_Element />
-                <SkillElement_Butterfly_Element />
-            </div>
+            <div className="skillelement_butterfly_child"></div>
+            {skillElement_butterfly_elements}
         </div>
     );
 })
 
 const SkillElement_Butterfly_Element = React.memo(() => {
+
     return(
-        <div className="skillelement_butterfly_element"
+        <div className="skillelement_butterfly_element_container"
             style={{
-                transform: `translate(${
-                    Math.floor(Math.random() * (140 - (-140) + 1)) + (-140)
-                }px, ${
-                    Math.floor(Math.random() * (140 - (-140) + 1)) + (-140)
-                }px)`
+                animation: `${Math.random() * (6.5 - (3.6) + 1) + (3.6)}s butterfly_rotating infinite linear`,
             }}
-        ></div>
+        >
+            <div className="skillelement_butterfly_element_initialrotation"
+                style={{transform: `rotate(${Math.floor(Math.random() * (360 - (0) + 1)) + (0)}deg)`}}
+            >
+                <div>
+                    <div className="skillelement_butterfly_element"
+                        style={{
+                            transform: `translateX(${
+                                Math.floor(Math.random() * (180 - (100) + 1)) + (100)
+                            }px)
+                            rotate(15deg)
+                            scale(${Math.random() * (1.35 - (.6)) + (.6)})`,
+                            animationDelay: `${Math.random() * (1.5 - (0)) + (0)}s`
+                        }}
+                    >
+                        <svg
+                            width={`40px`} height={`40px`}
+                        >
+                            <path d="M1 0 L10 6 L15 12 L18 12 L22 6 L31 0 L30 18 L25
+                                22 L30 26 L31 43 L20 35 L16 25 L13 35 L1 43 L2 26 L7 22 L2 18 Z"
+                                fill="#ffffff"
+                            />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
     );
 })
+
+
+
+
+
+// ==================================================================================
+//                  INTERCONNECTION
+// ==================================================================================
+
+
+
+const SkillElemment_Interconnection = React.memo(() => {
+    
+    var points = [];
+    for (let i = 0; i < 15; i++) {
+        points.push(<SkillElemment_Interconnection_Point />);
+    }
+    
+    return(
+        <>
+            <div className="skillelement_interconnection shot"></div>
+            <div className="skillelement_interconnection_leftshine shot"></div>
+            <div className="skillelement_interconnection_pointscontainer">
+                {points}
+            </div>
+        </>
+    );
+})
+
+const SkillElemment_Interconnection_Point = React.memo(() => {
+    return(
+        <div className="skillelement_interconnection_point_scalestretch"
+            style={{
+                top: `${Math.floor(Math.random() * (600 - (0))) + (0)}px`,
+                left: `${Math.floor(Math.random() * (1000 - (0))) + (0)}px`
+            }}
+        >
+            <div className="skillelement_interconnection_point shot"
+            ></div>
+        </div>
+    );
+});
 
 
 

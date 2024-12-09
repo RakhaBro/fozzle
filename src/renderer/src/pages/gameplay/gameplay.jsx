@@ -38,7 +38,7 @@ const GamePlayPage = React.memo(() => {
             if (collisionData.enemypass === true) {
                 // setHealth((prevHealth) => prevHealth - 10);  
             }
-        }, 100);
+        }, 75);
 
 
         return () => {
