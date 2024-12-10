@@ -48,13 +48,19 @@ h1, p {
   z-index: 2000;
   -webkit-app-region: drag;
   width: 100%;
-  align-items: center; justify-content: end; display: flex;
+  align-items: center; justify-content: space-between; display: flex;
   gap: 4px;
   padding: 8px;
   box-sizing: border-box;
 }
 
-.upperframe > button {
+.upperframe .right {
+  align-self: stretch;
+  align-items: center; justify-content: end; display: flex;
+  gap: 4px;
+}
+
+.upperframe button {
   all: unset;
   -webkit-app-region: no-drag;
   cursor: pointer;

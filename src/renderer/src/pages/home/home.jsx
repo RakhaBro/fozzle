@@ -1,6 +1,7 @@
 import "./home.css";
 import { useContext } from "react";
 import { NavigationContext } from "../../providers/navigationProvider";
+import Credit from '../../components/credit/credit';
 
 function HomePage() {
 
@@ -15,6 +16,7 @@ function HomePage() {
                 </div>
                 <button onClick={() => {setActivePage("gameplay");}}>Start Game</button>
             </div>
+            <Credit />
         </div>
     );
 }

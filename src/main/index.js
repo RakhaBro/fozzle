@@ -1,31 +1,25 @@
+// =============================================================================
+//        HI ALL!
+//        THIS DEVELOPED BY RAKHA FADHILAH
+//        SEE THE GITHUB: "https://github.com/rakhabro/fozzle"
+//
+//        IT IS OPEN SOURCE, ANYONE CAN GET THE CODE
+//        ANYWAY, KEEP ME ON THE CREDIT :D
+//
+//        THANK YOU!
+// =============================================================================
+
+
 import { app, shell, BrowserWindow, ipcMain, Menu } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 
+// Create the browser window.
+let mainWindow;
+
 function createWindow() {
-  // Create the browser window.
-  const mainWindow = new BrowserWindow({
-    width: 1000,
-    height: 600,
-    show: false,
-    autoHideMenuBar: true,
-    vibrancy: 'under-window',
-    visualEffectState: 'active',
 
-    transparent: true,
-    frame: false,
-    resizable: false,
-    hasShadow: false,
-
-    ...(process.platform === 'linux' ? { icon } : {}),
-    webPreferences: {
-      preload: join(__dirname, '../preload/index.js'),
-      sandbox: false
-    }
-  })
-
-  
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()
   })
@@ -61,6 +55,41 @@ app.whenReady().then(() => {
 
   // IPC test
   ipcMain.on('ping', () => console.log('pong'))
+
+  // Minimize window
+  ipcMain.on("minimize-window", () => {
+    if (mainWindow) {
+      mainWindow.minimize();
+    }
+  });
+
+  ipcMain.on("quit-app", () => {
+    if (process.platform !== 'darwin') {
+      app.quit();
+    }
+  });
+
+  mainWindow = new BrowserWindow({
+    width: 1000,
+    height: 600,
+    show: false,
+    autoHideMenuBar: true,
+    vibrancy: 'under-window',
+    visualEffectState: 'active',
+  
+    transparent: true,
+    frame: false,
+    resizable: false,
+    hasShadow: false,
+  
+    ...(process.platform === 'linux' ? { icon } : {}),
+    webPreferences: {
+      preload: join(__dirname, '../preload/index.js'),
+      sandbox: false,
+      contextIsolation: false,
+      nodeIntegration: true
+    }
+  })
 
   createWindow()
 

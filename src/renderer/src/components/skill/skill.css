@@ -537,11 +537,22 @@
 }
 
 .skillelement_interconnection_point {
-    width: 26px;
-    height: 26px;
+    width: 16px;
+    height: 16px;
     border-radius: 6px;
     background: white;
     /* border: 2px solid white; */
     filter: drop-shadow(0px 0px 16px rgba(255, 255, 0, .3));
     transform: rotate(45deg);
+    opacity: 0;
+    animation: .5s skillelement_interconnection_point forwards linear;
+}
+
+@keyframes skillelement_interconnection_point {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }

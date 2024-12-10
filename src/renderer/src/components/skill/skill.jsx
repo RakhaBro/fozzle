@@ -280,7 +280,12 @@ const SkillElemment_Interconnection = React.memo(() => {
     
     var points = [];
     for (let i = 0; i < 15; i++) {
-        points.push(<SkillElemment_Interconnection_Point />);
+        points.push(
+            <SkillElemment_Interconnection_Point
+                key={"skillelement_interconnection_point_" + i}
+                id={"skillelement_interconnection_point_" + i}
+            />
+        );
     }
     
     return(
@@ -294,15 +299,17 @@ const SkillElemment_Interconnection = React.memo(() => {
     );
 })
 
-const SkillElemment_Interconnection_Point = React.memo(() => {
+const SkillElemment_Interconnection_Point = React.memo(({id}) => {
     return(
         <div className="skillelement_interconnection_point_scalestretch"
             style={{
                 top: `${Math.floor(Math.random() * (600 - (0))) + (0)}px`,
-                left: `${Math.floor(Math.random() * (1000 - (0))) + (0)}px`
+                left: `${Math.floor(Math.random() * (1000 - (200))) + (200)}px`
             }}
         >
             <div className="skillelement_interconnection_point shot"
+                id={id}
+                style={{animationDelay: `${Math.random() * (1.5 - (0)) + (0)}s`}}
             ></div>
         </div>
     );

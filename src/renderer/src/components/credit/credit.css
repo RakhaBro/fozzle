@@ -1,0 +1,20 @@
+.credit {
+    -webkit-app-region: no-drag;
+    position: fixed;
+    bottom: 40px;
+    cursor: pointer;
+    color: rgb(140, 140, 140);
+    transition: .15s;
+    align-items: center; justify-content: center; display: flex;
+    gap: 12px;
+}
+
+.credit:hover {
+    color: white;
+}
+
+.credit img {
+    width: 30px;
+    aspect-ratio: 1;
+    border-radius: 100%;
+}

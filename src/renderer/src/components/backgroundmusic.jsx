@@ -1,21 +1,31 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Howl } from 'howler';
+import FozzleBgMusic from '../assets/audios/backgroundmusic.mp3';
+import Icon_SoundOn from '../assets/icons/soundIcon';
 
 const BackgroundMusic = () => {
   
   const sound = new Howl({
-    src: ['../assets/audios/backgroundmusic.mp3'],
+    src: [FozzleBgMusic],
     loop: true,
     volume: 1,
-    onplay: () => {alert("Music played")},
-    onplayerror: (e) => {alert(e)}
   });
 
   useEffect(() => {
+    sound.play();
     return () => sound.stop();
   }, []);
 
-  return <button onClick={() => sound.play()}></button>;
+  const [mute, setMute] = useState(false);
+  useEffect(() => {
+    sound.mute(mute);
+  }, [mute]);
+
+
+  return <button onClick={() => {setMute((prevValue) => !prevValue)}}>
+    <Icon_SoundOn dimension={24} />
+  </button>;
+  // return null;
 };
 
 export default BackgroundMusic;
