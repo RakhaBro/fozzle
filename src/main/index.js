@@ -81,6 +81,7 @@ app.whenReady().then(() => {
     frame: false,
     resizable: false,
     hasShadow: false,
+    icon: icon,
   
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
