@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { HealthContext } from "../../providers/healthProvider";
 import "./skill.css";
 
 const SkillElement = React.memo(({verticalPosition}) => {
@@ -7,6 +8,7 @@ const SkillElement = React.memo(({verticalPosition}) => {
     // =======================================
     const [skill, setSkill] = useState("");
     const skillRef = useRef(skill);
+    const {setHealth} = useContext(HealthContext);
     var skillTimeout;
     useEffect(() => {
         skillRef.current = skill;
@@ -22,6 +24,7 @@ const SkillElement = React.memo(({verticalPosition}) => {
                     break;
                 case "butterfly":
                     document.querySelector(".skillelement_butterfly").classList.add("runskill_butterfly");
+                    setHealth(100);
                     break;
                 case "interconnection":
                     document.querySelector(".skillelement_interconnection").classList.add("runskill_interconnection");

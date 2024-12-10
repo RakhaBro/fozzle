@@ -5,6 +5,7 @@ import { NavigationContext } from "../../providers/navigationProvider";
 import controlCollision from "../../controllers/collisioncontroller";
 import EnemiesGenerator from "../../controllers/enemiesgenerator";
 import { ScoreContext } from "../../providers/scoreProvider";
+import { HealthContext } from "../../providers/healthProvider";
 
 const GamePlayPage = React.memo(() => {
 
@@ -16,10 +17,18 @@ const GamePlayPage = React.memo(() => {
     
     
     // HEALTH CONTROLLER ============================================================
-    const [health, setHealth] = useState(100);
+    const {health, setHealth} = useContext(HealthContext);
     useEffect(() => {
         if (health <= 0) {
             setActivePage("gameover");
+        }
+        if (health == 100) {
+            document.querySelector(".bar_border").classList.add("healthup_barborder");
+            document.querySelector(".bar").classList.add("healthup_bar");
+            setTimeout(() => {
+                document.querySelector(".bar_border").classList.remove("healthup_barborder");
+                document.querySelector(".bar").classList.remove("healthup_bar");
+            }, 4000);
         }
     }, [health]);
     // ==============================================================================
@@ -27,6 +36,7 @@ const GamePlayPage = React.memo(() => {
 
     useEffect(() => {
 
+        setHealth(100);
         setScore(0);
         
         // Start collision controller (to score and to miss)

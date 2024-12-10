@@ -18,6 +18,7 @@ import BackgroundMusic from "./components/backgroundmusic"
 import Icon_Minimize from "./assets/icons/minimizeIcon"
 import Icon_Close from "./assets/icons/closeIcon"
 import Credit from "./components/credit/credit"
+import { HealthProvider } from "./providers/healthProvider"
 
 function App() {
 
@@ -25,7 +26,9 @@ function App() {
 
   let windowContent = null;
   if (activePage == "gameplay") {
-    windowContent = <GamePlayPage />
+    windowContent = <HealthProvider>
+      <GamePlayPage />
+    </HealthProvider>
   } else if (activePage == "gameover") {
     windowContent = <GameOverPage />
   } else {
